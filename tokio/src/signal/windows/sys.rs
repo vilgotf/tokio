@@ -81,15 +81,15 @@ impl Storage for OsStorage {
         }
     }
 
-    fn for_each<'a, F>(&'a self, mut f: F)
-    where
-        F: FnMut(&'a EventInfo),
-    {
-        f(&self.ctrl_break);
-        f(&self.ctrl_close);
-        f(&self.ctrl_c);
-        f(&self.ctrl_logoff);
-        f(&self.ctrl_shutdown);
+    fn iter(&self) -> impl Iterator<Item = &EventInfo> {
+        [
+            &self.ctrl_break,
+            &self.ctrl_close,
+            &self.ctrl_c,
+            &self.ctrl_logoff,
+            &self.ctrl_shutdown,
+        ]
+        .into_iter()
     }
 }
 
